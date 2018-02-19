@@ -30,9 +30,11 @@ module.exports = {
 
     },
     sendRequest: (url, count, callback) => {
+        //Checking for maximum 3 attempt
         if (count > 3) {
             return callback(new Error('Website not found'));
         }
+        //sending head request only for checking the status code
         request.head(url, function (err, response, body) {
             if (err) {
                 return module.exports.sendRequest(url, count + 1, callback);
